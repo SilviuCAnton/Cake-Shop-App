@@ -1,38 +1,50 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "domain.h"
 
-ingredient createIngredient(char* name, char* manufacturer, float quantity) {
-	ingredient ing;
-	ing.name = name;
-	ing.manufacturer = manufacturer;
+Ingredient createIngredient(char* name, char* manufacturer, float quantity) {
+	Ingredient ing;
+
+	ing.name = (char*) malloc(strlen(name)+1);
+	strcpy(ing.name, name);
+
+	ing.manufacturer = (char*) malloc(strlen(manufacturer)+1);
+	strcpy(ing.manufacturer, manufacturer);
+
 	ing.quantity = quantity;
+
 	return ing;
 }
 
-void repr(ingredient* ingr) {
+void repr(Ingredient* ingr) {
 	printf("%s - manufacturer: %s, quant: %f", ingr->name, ingr->manufacturer, ingr->quantity);
 }
 
-void getName(ingredient* ingr) {
+char* getName(Ingredient* ingr) {
 	return ingr->name;
 }
 
-void setName(ingredient* ingr, char* name) {
-	ingr->name = name;
+void setName(Ingredient* ingr, char* name) {
+	free(ingr->name);
+	ingr->name = (char*) malloc(strlen(name) + 1);
+	strcpy(ingr->name, name);
 }
 
-void getManufacturer(ingredient* ingr) {
+char* getManufacturer(Ingredient* ingr) {
 	return ingr->manufacturer;
 }
 
-void setManufacturer(ingredient* ingr, char* manufacturer) {
-	ingr->manufacturer = manufacturer;
+void setManufacturer(Ingredient* ingr, char* manufacturer) {
+	free(ingr->manufacturer);
+	ingr->manufacturer = (char*) malloc(strlen(manufacturer) + 1);
+	strcpy(ingr->manufacturer, manufacturer);
 }
 
-void getQuantity(ingredient* ingr) {
+float getQuantity(Ingredient* ingr) {
 	return ingr->quantity;
 }
 
-void setQuantity(ingredient* ingr, float quantity) {
+void setQuantity(Ingredient* ingr, float quantity) {
 	ingr->quantity = quantity;
 }
