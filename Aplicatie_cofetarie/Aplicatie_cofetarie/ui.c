@@ -9,7 +9,7 @@ void displayMenu() {
 	printf("Introduceti o optiune: ");
 }
 
-void addIngredientUI(DinamicVect* repo) {
+void addIngredientUI(DynamicVect* repo) {
 	char name[20];
 	char manufacturer[20];
 	float quatity;
@@ -29,12 +29,12 @@ void addIngredientUI(DinamicVect* repo) {
 		printf("\nIngredientul exista deja si a fost actualizat!\n\n");
 
 	for (int i = 0; i < getSize(repo); i++) {
-		printf("%s - %s - %f \n", repo->elems[i].name, repo->elems[i].manufacturer, repo->elems[i].quantity);
+		printf("%s - %s - %f \n", getName(getElement(repo, i)), getManufacturer(getElement(repo, i)), getQuantity(getElement(repo, i)));
 	}
 	printf("\n");
 }
 
-void modifyIngredientUI(DinamicVect* repo) {
+void modifyIngredientUI(DynamicVect* repo) {
 	char name[20];
 	char manufacturer[20];
 	float quatity;
@@ -54,12 +54,12 @@ void modifyIngredientUI(DinamicVect* repo) {
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
 
 	for (int i = 0; i < getSize(repo); i++) {
-		printf("%s - %s - %f \n", repo->elems[i].name, repo->elems[i].manufacturer, repo->elems[i].quantity);
+		printf("%s - %s - %f \n", getName(getElement(repo, i)), getManufacturer(getElement(repo, i)), getQuantity(getElement(repo, i)));
 	}
 	printf("\n");
 }
 
-void removeIngredientUI(DinamicVect* repo) {
+void removeIngredientUI(DynamicVect* repo) {
 	char name[20];
 
 	printf("Introduceti numele materiei prime pe care doriti sa o stergeti: ");
@@ -71,37 +71,36 @@ void removeIngredientUI(DinamicVect* repo) {
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
 
 	for (int i = 0; i < getSize(repo); i++) {
-		printf("%s - %s - %f \n", repo->elems[i].name, repo->elems[i].manufacturer, repo->elems[i].quantity);
+		printf("%s - %s - %f \n", getName(getElement(repo, i)), getManufacturer(getElement(repo, i)), getQuantity(getElement(repo, i)));
 	}
 	printf("\n");
 }
 
 void run() {
-	DinamicVect myRepo = createVector();
+	DynamicVect* myRepo = createVector();
 	int optiune;
 	while (1) {
 		displayMenu();
 		scanf("%d", &optiune);
 		
 		if (optiune == 0) {
-			for (int i = 0; i < getSize(&myRepo); i++) {
-				free(myRepo.elems[i].name);
-				free(myRepo.elems[i].manufacturer);
-			}
-			free(myRepo.elems);
+			for (int i = 0; i < getSize(myRepo); i++)
+				destroyIngredient(myRepo->elems[i]);
+
+			destroyVector(myRepo);
 			printf("Se inchide aplicatia...");
 			break;
 		}
 
 		switch(optiune){
 			case 1:
-				addIngredientUI(&myRepo);
+				addIngredientUI(myRepo);
 				break;
 			case 2:
-				modifyIngredientUI(&myRepo);
+				modifyIngredientUI(myRepo);
 				break;
 			case 3:
-				removeIngredientUI(&myRepo);
+				removeIngredientUI(myRepo);
 				break;
 			default:
 				printf("Optiunea nu exista!!!");

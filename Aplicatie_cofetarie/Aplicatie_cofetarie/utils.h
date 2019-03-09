@@ -2,12 +2,14 @@
 #include "domain.h"
 
 typedef struct {
-	Ingredient* elems;
+	void** elems;
 	int size;
 	int capacity;
-}DinamicVect;
+}DynamicVect;
 
-DinamicVect createVector();
-int getSize(DinamicVect* v);
-void append(DinamicVect* v, Ingredient ing);
-void decSize(DinamicVect* v);
+DynamicVect* createVector();
+void destroyVector(DynamicVect* v);
+void* getElement(DynamicVect* v, int poz);
+int getSize(DynamicVect* v);
+void append(DynamicVect* v, void* elem);
+void decSize(DynamicVect* v);

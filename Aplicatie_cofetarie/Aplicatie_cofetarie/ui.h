@@ -2,5 +2,5 @@
 #include "utils.h"
 
 void run();
-void addIngredientUI(DinamicVect* repo);
+void addIngredientUI(DynamicVect* repo);
 void displayMenu();

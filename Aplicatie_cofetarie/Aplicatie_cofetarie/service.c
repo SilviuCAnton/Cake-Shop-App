@@ -3,33 +3,33 @@
 #include "domain.h"
 #include <string.h>
 
-int addIngredient(DinamicVect* v, char* name, char* manufacturer, float quantity) {
+int addIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity) {
 	int ok = 1;
 
 	for (int i = 0; i < getSize(v); i++) {
-		if (strcmp(getName(&(v->elems[i])), name) == 0) {
-			setManufacturer(&(v->elems[i]), manufacturer);
-			setQuantity(&(v->elems[i]), quantity);
+		if (strcmp(getName(getElement(v, i)), name) == 0) {
+			setManufacturer(getElement(v, i), manufacturer);
+			setQuantity(getElement(v, i), quantity);
 			ok = 0;
 			break;
 		}
 	}
 
 	if (ok == 1) {
-		Ingredient ingredient = createIngredient(name, manufacturer, quantity);
+		Ingredient* ingredient = createIngredient(name, manufacturer, quantity);
 		append(v, ingredient);
 	}
 
 	return ok;
 }
 
-int modifyIngredient(DinamicVect* v, char* name, char* manufacturer, float quantity) {
+int modifyIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity) {
 	int ok = 0;
 
 	for (int i = 0; i < getSize(v); i++) {
-		if (strcmp(getName(&(v->elems[i])), name) == 0) {
-			setManufacturer(&(v->elems[i]), manufacturer);
-			setQuantity(&(v->elems[i]), quantity);
+		if (strcmp(getName(getElement(v, i)), name) == 0) {
+			setManufacturer(getElement(v, i), manufacturer);
+			setQuantity(getElement(v, i), quantity);
 			ok = 1;
 			break;
 		}		
@@ -38,12 +38,12 @@ int modifyIngredient(DinamicVect* v, char* name, char* manufacturer, float quant
 	return ok;
 }
 
-int removeIngredient(DinamicVect* v, char* name) {
+int removeIngredient(DynamicVect* v, char* name) {
 	int ok = 0;
 	int poz = 0;
 
 	for (int i = 0; i < getSize(v); i++) {
-		if (strcmp(getName(&(v->elems[i])), name) == 0) {
+		if (strcmp(getName(getElement(v, i)), name) == 0) {
 			poz = i;
 			ok = 1;
 			break;
@@ -52,6 +52,7 @@ int removeIngredient(DinamicVect* v, char* name) {
 
 	if (ok == 1) {
 		for (int i = poz; i < getSize(v) - 1; i++) {
+			free(v->elems[i]);
 			v->elems[i] = v->elems[i + 1];
 		}
 		decSize(v);

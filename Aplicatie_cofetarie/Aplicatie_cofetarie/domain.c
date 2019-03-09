@@ -3,16 +3,16 @@
 #include <string.h>
 #include "domain.h"
 
-Ingredient createIngredient(char* name, char* manufacturer, float quantity) {
-	Ingredient ing;
+Ingredient* createIngredient(char* name, char* manufacturer, float quantity) {
+	Ingredient* ing = malloc(sizeof(Ingredient));
 
-	ing.name = (char*) malloc(strlen(name)+1);
-	strcpy(ing.name, name);
+	ing->name = (char*) malloc(strlen(name)+1);
+	strcpy(ing->name, name);
 
-	ing.manufacturer = (char*) malloc(strlen(manufacturer)+1);
-	strcpy(ing.manufacturer, manufacturer);
+	ing->manufacturer = (char*) malloc(strlen(manufacturer)+1);
+	strcpy(ing->manufacturer, manufacturer);
 
-	ing.quantity = quantity;
+	ing->quantity = quantity;
 
 	return ing;
 }
@@ -47,4 +47,9 @@ float getQuantity(Ingredient* ingr) {
 
 void setQuantity(Ingredient* ingr, float quantity) {
 	ingr->quantity = quantity;
+}
+
+void destroyIngredient(Ingredient* ingr) {
+	free(getName(ingr));
+	free(getManufacturer(ingr));
 }
