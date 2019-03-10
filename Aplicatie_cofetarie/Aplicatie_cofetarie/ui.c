@@ -13,7 +13,7 @@ void displayMenu() {
 void addIngredientUI(DynamicVect* repo) {
 	char name[20];
 	char manufacturer[20];
-	float quatity;
+	float quantity;
 
 	printf("Introduceti numele materiei prime: ");
 	scanf_s("%s", &name, 20);
@@ -22,9 +22,15 @@ void addIngredientUI(DynamicVect* repo) {
 	scanf_s("%s", &manufacturer, 20);
 
 	printf("Introduceti cantitatea: ");
-	scanf("%f", &quatity);
+	scanf("%f", &quantity);
 
-	if (addIngredient(repo, name, manufacturer, quatity))
+	if (quantity <= 0)
+	{
+		printf("Cantitatea trebuie sa fie pozitiva!!!");
+		return;
+	}
+
+	if (addIngredient(repo, name, manufacturer, quantity))
 		printf("\nIngredientul a fost adaugat!\n\n");
 	else
 		printf("\nIngredientul exista deja si a fost actualizat!\n\n");
@@ -38,7 +44,7 @@ void addIngredientUI(DynamicVect* repo) {
 void modifyIngredientUI(DynamicVect* repo) {
 	char name[20];
 	char manufacturer[20];
-	float quatity;
+	float quantity;
 
 	printf("Introduceti numele materiei prime pe care doriti sa o modificati: ");
 	scanf_s("%s", &name, 20);
@@ -47,9 +53,15 @@ void modifyIngredientUI(DynamicVect* repo) {
 	scanf_s("%s", &manufacturer, 20);
 
 	printf("Introduceti cantitatea: ");
-	scanf("%f", &quatity);
+	scanf("%f", &quantity);
 
-	if (modifyIngredient(repo, name, manufacturer, quatity))
+	if (quantity <= 0)
+	{
+		printf("Cantitatea trebuie sa fie pozitiva!!!");
+		return;
+	}
+
+	if (modifyIngredient(repo, name, manufacturer, quantity))
 		printf("\nIngredientul a fost modificat!\n\n");
 	else
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
