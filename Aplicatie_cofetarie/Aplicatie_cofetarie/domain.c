@@ -64,8 +64,9 @@ void setQuantity(Ingredient* ingr, float quantity) {
 	ingr->quantity = quantity;
 }
 
-void destroyIngredient(Ingredient* ingr) {
+void destroy(Ingredient* ingr) {
 	//Elibereaza memoria unei materii prime(distruge materia prima)
 	free(getName(ingr));
 	free(getManufacturer(ingr));
+	free(ingr);
 }

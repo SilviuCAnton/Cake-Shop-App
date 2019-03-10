@@ -147,9 +147,6 @@ void run() {
 		scanf("%d", &optiune);
 		
 		if (optiune == 0) {
-			for (int i = 0; i < getSize(myRepo); i++)
-				destroyIngredient(myRepo->elems[i]);
-
 			destroyVector(myRepo);
 			printf("Se inchide aplicatia...");
 			break;

@@ -121,12 +121,14 @@
     <ClCompile Include="domain.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="service.c" />
+    <ClCompile Include="tests.c" />
     <ClCompile Include="ui.c" />
     <ClCompile Include="utils.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="domain.h" />
     <ClInclude Include="service.h" />
+    <ClInclude Include="tests.h" />
     <ClInclude Include="ui.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

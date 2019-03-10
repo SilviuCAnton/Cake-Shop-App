@@ -100,7 +100,7 @@ DynamicVect* nameFilter(DynamicVect* v, char letter) {
 		- letter - litera pentru filtrare
 	*/
 	DynamicVect* resultV = createVector();
-	for (int i = 0; i < v->size; i++) {
+	for (int i = 0; i < getSize(v); i++) {
 		if (getName(getElement(v, i))[0] == letter)
 			append(resultV, getElement(v, i));
 	}
@@ -117,7 +117,7 @@ DynamicVect* quantityFilter(DynamicVect* v, float number) {
 		- number - cantitatea pentru filtrare
 	*/
 	DynamicVect* resultV = createVector();
-	for (int i = 0; i < v->size; i++) {
+	for (int i = 0; i < getSize(v); i++) {
 		if (getQuantity(getElement(v, i)) < number)
 			append(resultV, getElement(v, i));
 	}
@@ -132,8 +132,8 @@ void sortByName(DynamicVect* v) {
 	In:
 		- v - lista de materii prime
 	*/
-	for (int i = 0; i < v->size - 1; i++) {
-		for (int j = i + 1; j < v->size; j++) {
+	for (int i = 0; i < getSize(v) - 1; i++) {
+		for (int j = i + 1; j < getSize(v); j++) {
 			if (strcmp(getName(v->elems[i]), getName(v->elems[j])) > 0) {
 				Ingredient* aux = v->elems[i];
 				v->elems[i] = v->elems[j];
@@ -150,8 +150,8 @@ void sortByQuantity(DynamicVect* v) {
 	In:
 		- v - lista de materii prime
 	*/
-	for (int i = 0; i < v->size - 1; i++) {
-		for (int j = i + 1; j < v->size; j++) {
+	for (int i = 0; i < getSize(v) - 1; i++) {
+		for (int j = i + 1; j < getSize(v); j++) {
 			if (getQuantity(v->elems[i]) < getQuantity(v->elems[j])) {
 				Ingredient* aux = v->elems[i];
 				v->elems[i] = v->elems[j];

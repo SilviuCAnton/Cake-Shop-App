@@ -25,10 +25,13 @@ void removeElement(DynamicVect* v, int poz) {
 		- v - pointer la vector
 		- poz - pozitia elementului de sters
 	*/
-	void* aux = v->elems[poz];
-	v->elems[poz] = v->elems[v->size - 1];
-	v->elems[v->size - 1] = aux;
-	destroyIngredient(v->elems[v->size - 1]);
+	if (poz != v->size - 1) {
+		void* aux = v->elems[poz];
+		v->elems[poz] = v->elems[v->size - 1];
+		v->elems[v->size - 1] = aux;
+	}
+
+	destroy(v->elems[v->size - 1]);
 	v->size -= 1;
 }
 
@@ -39,8 +42,8 @@ void destroyVector(DynamicVect* v) {
 	In:
 		- v - pointer la vector
 	*/
-	for (int i = 0; i < getSize(v); i++) {
-		free(v->elems[i]);
+	for (int i = 0; i < v->size; i++) {
+		destroy(v->elems[i]);
 	}
 	free(v->elems);
 	free(v);
