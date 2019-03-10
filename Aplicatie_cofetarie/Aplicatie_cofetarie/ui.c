@@ -2,10 +2,11 @@
 #include <stdlib.h>
 #include "service.h"
 #include <stdio.h>
+//Modulul pentru interactiunea cu utilizatorul
 
 void displayMenu() {
 	printf("Alegeti una dintre urmatoarele optiuni: \n");
-	printf("1 Adaugare materie prima \n2 Modificare materie prima \n3 Stergere materie prima \n4 Afisare produse care incep cu o litera data \n5 Afisare produse cu cantitatea mai mica decat un numar dat \n6 Sortare dupa nume \n7 Sortare dupa pret \n0 Inchideti aplicatia\n");
+	printf("1 Adaugare materie prima \n2 Modificare materie prima \n3 Stergere materie prima \n4 Afisare produse care incep cu o litera data \n5 Afisare produse cu cantitatea mai mica decat un numar dat \n6 Sortare dupa nume \n7 Sortare dupa cantitate \n0 Inchideti aplicatia\n");
 	printf("Introduceti o optiune: ");
 }
 

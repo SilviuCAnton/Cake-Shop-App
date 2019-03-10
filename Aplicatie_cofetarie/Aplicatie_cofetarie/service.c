@@ -4,6 +4,18 @@
 #include <string.h>
 
 int addIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity) {
+	/*
+	Description: adauga o materie prima intr-o lista
+
+	In:
+		- v - lista de materii prime
+		- name - numele materiei prime
+		- manufacturer - numele producatorului
+		- quantity - cantitatea
+
+	Out:
+		- ok - 0 daca materia prima este exista si 1 in caz contrar
+	*/
 	int ok = 1;
 
 	for (int i = 0; i < getSize(v); i++) {
@@ -24,6 +36,18 @@ int addIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity
 }
 
 int modifyIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity) {
+	/*
+	Description: modifica o materie prima din lista
+
+	In:
+		- v - lista de materii prime
+		- name - numele materiei prime
+		- manufacturer - numele producatorului
+		- quantity - cantitatea
+
+	Out:
+		- ok - 0 daca materia prima este inexistenta si 1 in caz contrar
+	*/
 	int ok = 0;
 
 	for (int i = 0; i < getSize(v); i++) {
@@ -39,7 +63,17 @@ int modifyIngredient(DynamicVect* v, char* name, char* manufacturer, float quant
 }
 
 int removeIngredient(DynamicVect* v, char* name) {
-	int ok = -1;
+	/*
+	Description: sterge o materie prima din lista
+
+	In:
+		- v - lista de materii prime
+		- name - numele materiei prime
+
+	Out:
+		- ok - 0 daca materia prima este inexistenta si 1 in caz contrar
+	*/
+	int ok = 0;
 	int poz = 0;
 
 	for (int i = 0; i < getSize(v); i++) {
@@ -58,6 +92,13 @@ int removeIngredient(DynamicVect* v, char* name) {
 }
 
 DynamicVect* nameFilter(DynamicVect* v, char letter) {
+	/*
+	Description: filtreaza materiile prime dupa nume (numele care incep cu o litera data)
+
+	In:
+		- v - lista de materii prime
+		- letter - litera pentru filtrare
+	*/
 	DynamicVect* resultV = createVector();
 	for (int i = 0; i < v->size; i++) {
 		if (getName(getElement(v, i))[0] == letter)
@@ -68,6 +109,13 @@ DynamicVect* nameFilter(DynamicVect* v, char letter) {
 }
 
 DynamicVect* quantityFilter(DynamicVect* v, float number) {
+	/*
+	Description: filtreaza materiile prime dupa cantitate (au cantitatea mai mica decat cea data)
+
+	In:
+		- v - lista de materii prime
+		- number - cantitatea pentru filtrare
+	*/
 	DynamicVect* resultV = createVector();
 	for (int i = 0; i < v->size; i++) {
 		if (getQuantity(getElement(v, i)) < number)
@@ -78,6 +126,12 @@ DynamicVect* quantityFilter(DynamicVect* v, float number) {
 }
 
 void sortByName(DynamicVect* v) {
+	/*
+	Description: sorteaza materiile prime crescator dupa nume
+
+	In:
+		- v - lista de materii prime
+	*/
 	for (int i = 0; i < v->size - 1; i++) {
 		for (int j = i + 1; j < v->size; j++) {
 			if (strcmp(getName(v->elems[i]), getName(v->elems[j])) > 0) {
@@ -90,6 +144,12 @@ void sortByName(DynamicVect* v) {
 }
 
 void sortByQuantity(DynamicVect* v) {
+	/*
+	Description: sorteaza materiile prime descrescator dupa cantitate
+
+	In:
+		- v - lista de materii prime
+	*/
 	for (int i = 0; i < v->size - 1; i++) {
 		for (int j = i + 1; j < v->size; j++) {
 			if (getQuantity(v->elems[i]) < getQuantity(v->elems[j])) {
