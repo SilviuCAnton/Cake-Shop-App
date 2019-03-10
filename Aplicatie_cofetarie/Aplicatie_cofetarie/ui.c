@@ -5,7 +5,7 @@
 
 void displayMenu() {
 	printf("Alegeti una dintre urmatoarele optiuni: \n");
-	printf("1 Adaugare materie prima \n2 Modificare materie prima \n3 Stergere materie prima \n0 Inchideti aplicatia\n");
+	printf("1 Adaugare materie prima \n2 Modificare materie prima \n3 Stergere materie prima \n4 Afisare produse care incep cu o litera data \n5 Afisare produse cu cantitatea mai mica decat un numar dat \n6 Sortare dupa nume \n7 Sortare dupa pret \n0 Inchideti aplicatia\n");
 	printf("Introduceti o optiune: ");
 }
 
@@ -76,6 +76,68 @@ void removeIngredientUI(DynamicVect* repo) {
 	printf("\n");
 }
 
+void nameFilterUI(DynamicVect* repo) {
+	char letter;
+	printf("Introduceti litera dupa care filtrati materiile prime: ");
+	scanf(" %c", &letter);
+
+	DynamicVect* resultList = nameFilter(repo, letter);
+
+	if (resultList->size == 0)
+		printf("Nu exista materii prime ce incep cu litera %c!!!", letter);
+	else {
+		printf("\nLista produse:\n");
+		for (int i = 0; i < getSize(resultList); i++) {
+			printf("%s - %s - %f \n", getName(getElement(resultList, i)), getManufacturer(getElement(resultList, i)), getQuantity(getElement(resultList, i)));
+		}
+		printf("\n");
+	}
+
+	free(resultList->elems);
+	free(resultList);
+}
+
+void quantityFilterUI(DynamicVect* repo) {
+	float number;
+	printf("Introduceti cantitatea maxima: ");
+	scanf("%f", &number);
+
+	DynamicVect* resultList = quantityFilter(repo, number);
+
+	if (resultList->size == 0)
+		printf("Nu exista materii prime cu cantitatea mai mica decat %f!!!", number);
+	else {
+		printf("\nLista produse:\n");
+		for (int i = 0; i < getSize(resultList); i++) {
+			printf("%s - %s - %f \n", getName(getElement(resultList, i)), getManufacturer(getElement(resultList, i)), getQuantity(getElement(resultList, i)));
+		}
+		printf("\n");
+	}
+
+	free(resultList->elems);
+	free(resultList);
+}
+
+void sortByNameUI(DynamicVect* repo) {
+	sortByName(repo);
+
+	printf("\nLista produse:\n");
+	for (int i = 0; i < getSize(repo); i++) {
+		printf("%s - %s - %f \n", getName(getElement(repo, i)), getManufacturer(getElement(repo, i)), getQuantity(getElement(repo, i)));
+	}
+	printf("\n");
+}
+
+void sortByQuantityUI(DynamicVect* repo) {
+	sortByQuantity(repo);
+
+	printf("\nLista produse:\n");
+	for (int i = 0; i < getSize(repo); i++) {
+		printf("%s - %s - %f \n", getName(getElement(repo, i)), getManufacturer(getElement(repo, i)), getQuantity(getElement(repo, i)));
+	}
+	printf("\n");
+}
+
 void run() {
 	DynamicVect* myRepo = createVector();
 	int optiune;
@@ -101,6 +163,18 @@ void run() {
 				break;
 			case 3:
 				removeIngredientUI(myRepo);
+				break;
+			case 4:
+				nameFilterUI(myRepo);
+				break;
+			case 5:
+				quantityFilterUI(myRepo);
+				break;
+			case 6:
+				sortByNameUI(myRepo);
+				break;
+			case 7:
+				sortByQuantityUI(myRepo);
 				break;
 			default:
 				printf("Optiunea nu exista!!!");

@@ -39,7 +39,7 @@ int modifyIngredient(DynamicVect* v, char* name, char* manufacturer, float quant
 }
 
 int removeIngredient(DynamicVect* v, char* name) {
-	int ok = 0;
+	int ok = -1;
 	int poz = 0;
 
 	for (int i = 0; i < getSize(v); i++) {
@@ -51,12 +51,52 @@ int removeIngredient(DynamicVect* v, char* name) {
 	}
 
 	if (ok == 1) {
-		for (int i = poz; i < getSize(v) - 1; i++) {
-			free(v->elems[i]);
-			v->elems[i] = v->elems[i + 1];
-		}
-		decSize(v);
+		removeElement(v, poz);
 	}
 		
 	return ok;
+}
+
+DynamicVect* nameFilter(DynamicVect* v, char letter) {
+	DynamicVect* resultV = createVector();
+	for (int i = 0; i < v->size; i++) {
+		if (getName(getElement(v, i))[0] == letter)
+			append(resultV, getElement(v, i));
+	}
+
+	return resultV;
+}
+
+DynamicVect* quantityFilter(DynamicVect* v, float number) {
+	DynamicVect* resultV = createVector();
+	for (int i = 0; i < v->size; i++) {
+		if (getQuantity(getElement(v, i)) < number)
+			append(resultV, getElement(v, i));
+	}
+
+	return resultV;
+}
+
+void sortByName(DynamicVect* v) {
+	for (int i = 0; i < v->size - 1; i++) {
+		for (int j = i + 1; j < v->size; j++) {
+			if (strcmp(getName(v->elems[i]), getName(v->elems[j])) > 0) {
+				Ingredient* aux = v->elems[i];
+				v->elems[i] = v->elems[j];
+				v->elems[j] = aux;
+			}
+		}
+	}
+}
+
+void sortByQuantity(DynamicVect* v) {
+	for (int i = 0; i < v->size - 1; i++) {
+		for (int j = i + 1; j < v->size; j++) {
+			if (getQuantity(v->elems[i]) < getQuantity(v->elems[j])) {
+				Ingredient* aux = v->elems[i];
+				v->elems[i] = v->elems[j];
+				v->elems[j] = aux;
+			}
+		}
+	}
 }

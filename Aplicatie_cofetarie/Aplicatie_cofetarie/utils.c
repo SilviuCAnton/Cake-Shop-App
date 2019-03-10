@@ -10,6 +10,14 @@ DynamicVect* createVector() {
 	return v;
 }
 
+void removeElement(DynamicVect* v, int poz) {
+	void* aux = v->elems[poz];
+	v->elems[poz] = v->elems[v->size - 1];
+	v->elems[v->size - 1] = aux;
+	destroyIngredient(v->elems[v->size - 1]);
+	v->size -= 1;
+}
+
 void destroyVector(DynamicVect* v) {
 	for (int i = 0; i < getSize(v); i++) {
 		free(v->elems[i]);
@@ -33,8 +41,4 @@ int getSize(DynamicVect* v) {
 
 void* getElement(DynamicVect* v, int poz) {
 	return v->elems[poz];
-}
-
-void decSize(DynamicVect* v) {
-	v->size -= 1;
 }

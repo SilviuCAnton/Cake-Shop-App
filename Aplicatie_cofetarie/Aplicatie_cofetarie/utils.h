@@ -12,4 +12,4 @@ void destroyVector(DynamicVect* v);
 void* getElement(DynamicVect* v, int poz);
 int getSize(DynamicVect* v);
 void append(DynamicVect* v, void* elem);
-void decSize(DynamicVect* v);
+void removeElement(DynamicVect* v, int poz);
