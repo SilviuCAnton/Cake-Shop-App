@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClCompile Include="domain.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="repo.c" />
     <ClCompile Include="service.c" />
     <ClCompile Include="tests.c" />
     <ClCompile Include="ui.c" />
@@ -127,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="domain.h" />
+    <ClInclude Include="repo.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="tests.h" />
     <ClInclude Include="ui.h" />

@@ -1,15 +1,19 @@
 #pragma once
 #include "domain.h"
 
+typedef void* ElemType;
+typedef void(*DestroyFunction)(ElemType);
+
 typedef struct {
-	void** elems;
+	ElemType* elems;
+	DestroyFunction destroy;
 	int size;
 	int capacity;
 }DynamicVect;
 
-DynamicVect* createVector();
+DynamicVect* createVector(DestroyFunction f);
 void destroyVector(DynamicVect* v);
-void* getElement(DynamicVect* v, int poz);
+ElemType getElement(DynamicVect* v, int poz);
 int getSize(DynamicVect* v);
-void append(DynamicVect* v, void* elem);
+void append(DynamicVect* v, ElemType elem);
 void removeElement(DynamicVect* v, int poz);

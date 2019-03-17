@@ -15,4 +15,4 @@ char* getManufacturer(Ingredient* ingr);
 void setManufacturer(Ingredient* ingr, char* manufacturer);
 float getQuantity(Ingredient* ingr);
 void setQuantity(Ingredient* ingr, float quantity);
-void destroy(Ingredient* ingr);
+void destroyIngredient(Ingredient* ingr);

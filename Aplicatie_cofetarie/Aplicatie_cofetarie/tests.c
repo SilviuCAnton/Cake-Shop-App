@@ -2,9 +2,11 @@
 #include "service.h"
 #include "domain.h"
 #include "utils.h"
+#include "repo.h"
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 //Modul pentru teste
 
@@ -19,14 +21,14 @@ void testEntity() {
 	assert(strcmp(getName(ing), "DA") == 0);
 	assert(strcmp(getManufacturer(ing), "NU") == 0);
 	assert(getQuantity(ing) == 2.5);
-	destroy(ing);
+	destroyIngredient(ing);
 
 	printf("ENTITIES OK \n");
 }
 
 void testDynamicVect() {
 		
-	DynamicVect* v = createVector();
+	DynamicVect* v = createVector(destroyIngredient);
 
 	Ingredient* x = createIngredient("da", "da", 15);
 	Ingredient* y = createIngredient("nu", "nu", 10);
@@ -47,15 +49,15 @@ void testDynamicVect() {
 }
 
 void testService() {
-	DynamicVect* repo = createVector();
+	Repository repo = createRepo(createVector(destroyIngredient));
 
 	addIngredient(repo, "DA", "DA", 33.6);
 	addIngredient(repo, "AU", "NU", 40);
 	addIngredient(repo, "DA", "da", 45);
-	assert(strcmp(getManufacturer(getElement(repo, 0)), "da") == 0);
+	assert(strcmp(getManufacturer(getElem(repo, 0)), "da") == 0);
 
 	modifyIngredient(repo, "AU", "ai", 20);
-	assert(getQuantity(getElement(repo, 1)) == 20);
+	assert(getQuantity(getElem(repo, 1)) == 20);
 
 	DynamicVect* resultFilter1 = nameFilter(repo, 'A');
 	assert(getSize(resultFilter1) == 1);
@@ -68,15 +70,15 @@ void testService() {
 	free(resultFilter2);
 
 	sortByName(repo);
-	assert(getName(getElement(repo, 0))[0] == 'A');
+	assert(getName(getElem(repo, 0))[0] == 'A');
 
 	sortByQuantity(repo);
-	assert(getQuantity(getElement(repo, 0)) == 45);
+	assert(getQuantity(getElem(repo, 0)) == 45);
 
 	removeIngredient(repo, "AU");
-	assert(getSize(repo) == 1);
+	assert(getNumberOfElems(repo) == 1);
 
-	destroyVector(repo);
+	destroyRepo(repo);
 
 	printf("SERVICE OK \n");
 }

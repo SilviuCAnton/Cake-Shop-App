@@ -1,10 +1,11 @@
 #pragma once
 #include "utils.h"
+#include "repo.h"
 
-int addIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity);
-int modifyIngredient(DynamicVect* v, char* name, char* manufacturer, float quantity);
-int removeIngredient(DynamicVect* v, char* name);
-DynamicVect* nameFilter(DynamicVect* v, char letter);
-DynamicVect* quantityFilter(DynamicVect* v, float number);
-void sortByName(DynamicVect* v);
-void sortByQuantity(DynamicVect* v);
+int addIngredient(Repository repo, char* name, char* manufacturer, float quantity);
+int modifyIngredient(Repository repo, char* name, char* manufacturer, float quantity);
+int removeIngredient(Repository repo, char* name);
+DynamicVect* nameFilter(Repository repo, char letter);
+DynamicVect* quantityFilter(Repository repo, float number);
+void sortByName(Repository repo);
+void sortByQuantity(Repository repo);
