@@ -16,3 +16,4 @@ void setManufacturer(Ingredient* ingr, char* manufacturer);
 float getQuantity(Ingredient* ingr);
 void setQuantity(Ingredient* ingr, float quantity);
 void destroyIngredient(Ingredient* ingr);
+int validate(Ingredient* ingr);

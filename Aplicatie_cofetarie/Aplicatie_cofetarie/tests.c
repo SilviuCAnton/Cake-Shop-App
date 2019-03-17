@@ -26,6 +26,21 @@ void testEntity() {
 	printf("ENTITIES OK \n");
 }
 
+void testValidator() {
+	Ingredient* ing1 = createIngredient("Halo", "ffff", -1);
+	Ingredient* ing2 = createIngredient("5Halo", "ffff", 24);
+	Ingredient* ing3 = createIngredient("Halo", "3ffff", 130);
+	Ingredient* ing4 = createIngredient("Halo", "ffff", 12);
+	assert(validate(ing1) == 0);
+	assert(validate(ing2) == 0);
+	assert(validate(ing3) == 0);
+	assert(validate(ing4) == 1);
+	destroyIngredient(ing1);
+	destroyIngredient(ing2);
+	destroyIngredient(ing3);
+	destroyIngredient(ing4);
+}
+
 void testDynamicVect() {
 		
 	DynamicVect* v = createVector(destroyIngredient);
@@ -54,9 +69,11 @@ void testService() {
 	addIngredient(repo, "DA", "DA", 33.6);
 	addIngredient(repo, "AU", "NU", 40);
 	addIngredient(repo, "DA", "da", 45);
+	assert(addIngredient(repo, "1A", "sdfa", 34) == -1);
 	assert(strcmp(getManufacturer(getElem(repo, 0)), "da") == 0);
 
 	modifyIngredient(repo, "AU", "ai", 20);
+	assert(modifyIngredient(repo, "AU", "ai", -21) == -1);
 	assert(getQuantity(getElem(repo, 1)) == 20);
 
 	DynamicVect* resultFilter1 = nameFilter(repo, 'A');
@@ -85,6 +102,7 @@ void testService() {
 
 void testFunctions() {
 	testEntity();
+	testValidator();
 	testDynamicVect();
 	testService();
 }

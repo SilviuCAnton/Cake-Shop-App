@@ -10,6 +10,14 @@ void displayMenu() {
 	printf("Introduceti o optiune: ");
 }
 
+void printList(Repository repo) {
+	printf("\nLista produse:\n");
+	for (int i = 0; i < getNumberOfElems(repo); i++) {
+		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
+	}
+	printf("\n");
+}
+
 void addIngredientUI(Repository repo) {
 	char name[20];
 	char manufacturer[20];
@@ -23,22 +31,17 @@ void addIngredientUI(Repository repo) {
 
 	printf("Introduceti cantitatea: ");
 	scanf("%f", &quantity);
+	
+	int rez = addIngredient(repo, name, manufacturer, quantity);
 
-	if (quantity <= 0)
-	{
-		printf("Cantitatea trebuie sa fie pozitiva!!!");
-		return;
-	}
-
-	if (addIngredient(repo, name, manufacturer, quantity))
+	if (rez == 1)
 		printf("\nIngredientul a fost adaugat!\n\n");
-	else
+	else if (rez == 0)
 		printf("\nIngredientul exista deja si a fost actualizat!\n\n");
+	else
+		printf("\nIngredientul nu este valid!\n\n");
 
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
-	}
-	printf("\n");
+	printList(repo);
 }
 
 void modifyIngredientUI(Repository repo) {
@@ -55,21 +58,16 @@ void modifyIngredientUI(Repository repo) {
 	printf("Introduceti cantitatea: ");
 	scanf("%f", &quantity);
 
-	if (quantity <= 0)
-	{
-		printf("Cantitatea trebuie sa fie pozitiva!!!");
-		return;
-	}
+	int rez = modifyIngredient(repo, name, manufacturer, quantity);
 
-	if (modifyIngredient(repo, name, manufacturer, quantity))
+	if (rez == 1)
 		printf("\nIngredientul a fost modificat!\n\n");
-	else
+	else if (rez == 0)
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
+	else
+		printf("\nDatele nu sunt valide!!!\n\n");
 
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
-	}
-	printf("\n");
+	printList(repo);
 }
 
 void removeIngredientUI(Repository repo) {
@@ -83,10 +81,7 @@ void removeIngredientUI(Repository repo) {
 	else
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
 
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
-	}
-	printf("\n");
+	printList(repo);
 }
 
 void nameFilterUI(Repository repo) {
@@ -133,22 +128,12 @@ void quantityFilterUI(Repository repo) {
 
 void sortByNameUI(Repository repo) {
 	sortByName(repo);
-
-	printf("\nLista produse:\n");
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
-	}
-	printf("\n");
+	printList(repo);
 }
 
 void sortByQuantityUI(Repository repo) {
 	sortByQuantity(repo);
-
-	printf("\nLista produse:\n");
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
-	}
-	printf("\n");
+	printList(repo);
 }
 
 void run(Repository myRepo) {

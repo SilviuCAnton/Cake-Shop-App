@@ -29,7 +29,12 @@ int addIngredient(Repository repo, char* name, char* manufacturer, float quantit
 
 	if (ok == 1) {
 		Ingredient* ingredient = createIngredient(name, manufacturer, quantity);
-		store(repo, ingredient);
+		if (validate(ingredient))
+			store(repo, ingredient);
+		else {
+			destroyIngredient(ingredient);
+			ok = -1;
+		}
 	}
 
 	return ok;
@@ -50,15 +55,21 @@ Out:
 int modifyIngredient(Repository repo, char* name, char* manufacturer, float quantity) {
 	int ok = 0;
 
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		if (strcmp(getName(getElem(repo, i)), name) == 0) {
-			setManufacturer(getElem(repo, i), manufacturer);
-			setQuantity(getElem(repo, i), quantity);
-			ok = 1;
-			break;
-		}		
+	Ingredient* ingredient = createIngredient(name, manufacturer, quantity);
+	if (validate(ingredient))
+		for (int i = 0; i < getNumberOfElems(repo); i++) {
+			if (strcmp(getName(getElem(repo, i)), name) == 0) {
+				setManufacturer(getElem(repo, i), manufacturer);
+				setQuantity(getElem(repo, i), quantity);
+				ok = 1;
+				break;
+			}
+		}
+	else {
+		ok = -1;
 	}
 
+	destroyIngredient(ingredient);
 	return ok;
 }
 

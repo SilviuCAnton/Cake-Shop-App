@@ -71,3 +71,14 @@ void destroyIngredient(Ingredient* ingr) {
 	free(getManufacturer(ingr));
 	free(ingr);
 }
+
+//Valideaza o materie prima
+int validate(Ingredient *ingr) {
+	if (ingr->quantity <= 0)
+		return 0;
+	if (strlen(ingr->name) < 1 || strlen(ingr->manufacturer) <= 1)
+		return 0;
+	if ((ingr->name[0] >= 48 && ingr->name[0] <= 64) || (ingr->manufacturer[0] >= 48 && ingr->manufacturer[0] <= 64))
+		return 0;
+	return 1;
+}
