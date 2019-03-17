@@ -7,7 +7,7 @@
 Description: adauga o materie prima intr-o lista
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 	- name - numele materiei prime
 	- manufacturer - numele producatorului
 	- quantity - cantitatea
@@ -44,7 +44,7 @@ int addIngredient(Repository repo, char* name, char* manufacturer, float quantit
 Description: modifica o materie prima din lista
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 	- name - numele materiei prime
 	- manufacturer - numele producatorului
 	- quantity - cantitatea
@@ -78,7 +78,7 @@ int modifyIngredient(Repository repo, char* name, char* manufacturer, float quan
 Description: sterge o materie prima din lista
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 	- name - numele materiei prime
 
 Out:
@@ -108,7 +108,7 @@ int removeIngredient(Repository repo, char* name) {
 Description: filtreaza materiile prime dupa nume (numele care incep cu o litera data)
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 	- letter - litera pentru filtrare
 */
 DynamicVect* nameFilter(Repository repo, char letter) {
@@ -125,7 +125,7 @@ DynamicVect* nameFilter(Repository repo, char letter) {
 Description: filtreaza materiile prime dupa cantitate (au cantitatea mai mica decat cea data)
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 	- number - cantitatea pentru filtrare
 */
 DynamicVect* quantityFilter(Repository repo, float number) {
@@ -142,16 +142,16 @@ DynamicVect* quantityFilter(Repository repo, float number) {
 Description: sorteaza materiile prime crescator dupa nume
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 */
 void sortByName(Repository repo) {
-	DynamicVect* v = getAll(repo);
-	for (int i = 0; i < getSize(v) - 1; i++) {
-		for (int j = i + 1; j < getSize(v); j++) {
-			if (strcmp(getName(v->elems[i]), getName(v->elems[j])) > 0) {
-				Ingredient* aux = v->elems[i];
-				v->elems[i] = v->elems[j];
-				v->elems[j] = aux;
+	DynamicVect* vect = getAll(repo);
+	for (int i = 0; i < getSize(vect) - 1; i++) {
+		for (int j = i + 1; j < getSize(vect); j++) {
+			if (strcmp(getName(vect->elems[i]), getName(vect->elems[j])) > 0) {
+				Ingredient* aux = vect->elems[i];
+				vect->elems[i] = vect->elems[j];
+				vect->elems[j] = aux;
 			}
 		}
 	}
@@ -161,16 +161,16 @@ void sortByName(Repository repo) {
 Description: sorteaza materiile prime descrescator dupa cantitate
 
 In:
-	- v - lista de materii prime
+	- repo - repository de materii prime
 */
 void sortByQuantity(Repository repo) {
-	DynamicVect* v = getAll(repo);
-	for (int i = 0; i < getSize(v) - 1; i++) {
-		for (int j = i + 1; j < getSize(v); j++) {
-			if (getQuantity(v->elems[i]) < getQuantity(v->elems[j])) {
-				Ingredient* aux = v->elems[i];
-				v->elems[i] = v->elems[j];
-				v->elems[j] = aux;
+	DynamicVect* vect = getAll(repo);
+	for (int i = 0; i < getSize(vect) - 1; i++) {
+		for (int j = i + 1; j < getSize(vect); j++) {
+			if (getQuantity(vect->elems[i]) < getQuantity(vect->elems[j])) {
+				Ingredient* aux = vect->elems[i];
+				vect->elems[i] = vect->elems[j];
+				vect->elems[j] = aux;
 			}
 		}
 	}

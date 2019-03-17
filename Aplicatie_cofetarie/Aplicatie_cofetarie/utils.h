@@ -12,8 +12,8 @@ typedef struct {
 }DynamicVect;
 
 DynamicVect* createVector(DestroyFunction f);
-void destroyVector(DynamicVect* v);
-ElemType getElement(DynamicVect* v, int poz);
-int getSize(DynamicVect* v);
-void append(DynamicVect* v, ElemType elem);
-void removeElement(DynamicVect* v, int poz);
+void destroyVector(DynamicVect* vect);
+ElemType getElement(DynamicVect* vect, int poz);
+int getSize(DynamicVect* vect);
+void append(DynamicVect* vect, ElemType elem);
+void removeElement(DynamicVect* vect, int poz);
