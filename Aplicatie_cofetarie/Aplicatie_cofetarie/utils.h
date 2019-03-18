@@ -17,3 +17,4 @@ ElemType getElement(DynamicVect* vect, int poz);
 int getSize(DynamicVect* vect);
 void append(DynamicVect* vect, ElemType elem);
 void removeElement(DynamicVect* vect, int poz);
+void setElement(DynamicVect* vect, int poz, ElemType value);

@@ -153,27 +153,28 @@ In:
 	- repo - repository de materii prime
 	- cmpFct - functie de comparare
 */
-void sort(Repository repo, int(*cmpFct)(ElemType e1, ElemType e2)) {
-	DynamicVect* vect = getAll(repo);
+void sort(DynamicVect* vect, int(*cmpFct)(ElemType e1, ElemType e2)) {
 	for (int i = 0; i < getSize(vect) - 1; i++) {
 		for (int j = i + 1; j < getSize(vect); j++) {
-			if (cmpFct(vect->elems[i], vect->elems[j])) {
-				ElemType aux = vect->elems[i];
-				vect->elems[i] = vect->elems[j];
-				vect->elems[j] = aux;
+			ElemType el1 = getElement(vect, i);
+			ElemType el2 = getElement(vect, j);
+			if (cmpFct(el1, el2)) {
+				setElement(vect, i, el2);
+				setElement(vect, j, el1);
 			}
 		}
 	}
 }
 
 /*
-Description: sorteaza materiile prime
+Description: sorteaza materiile prime crescator dupa nume
 
 In:
 	- repo - repository de materii prime
 */
 void sortByName(Repository repo) {
-	sort(repo, cmpName);
+	DynamicVect* vect = getAll(repo);
+	sort(vect, cmpName);
 }
 
 /*
@@ -183,5 +184,6 @@ In:
 	- repo - repository de materii prime
 */
 void sortByQuantity(Repository repo) {
-	sort(repo, cmpQuantity);
+	DynamicVect* vect = getAll(repo);
+	sort(vect, cmpQuantity);
 }

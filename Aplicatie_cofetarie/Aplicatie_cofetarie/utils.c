@@ -80,3 +80,8 @@ int getSize(DynamicVect* vect) {
 ElemType getElement(DynamicVect* vect, int poz) {
 	return vect->elems[poz];
 }
+
+//Seteaza un element al vectorului
+void setElement(DynamicVect* vect, int poz, ElemType value) {
+	vect->elems[poz] = value;
+}
