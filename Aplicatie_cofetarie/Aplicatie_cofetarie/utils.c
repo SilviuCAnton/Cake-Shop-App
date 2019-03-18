@@ -55,18 +55,27 @@ void destroyVector(DynamicVect* vect) {
 	free(vect);
 }
 
+//Description: redimensioneaza vectorul vect la capacitate dubla
+void resizeVector(DynamicVect* vect) {
+	vect->capacity *= 2;
+	ElemType* newArray = malloc(sizeof(ElemType) * vect->capacity);
+	for (int i = 0; i < vect->size; i++)
+		newArray[i] = vect->elems[i];
+	free(vect->elems);
+	vect->elems = newArray;
+}
+
 /*
 	Description: adauga un element la vector
 
 	In:
 		- vect - pointer la vector
 		- void* - pointer la element
-	*/
+*/
 void append(DynamicVect* vect, ElemType elem) {
 	
 	if (vect->size == vect->capacity) {
-		vect->capacity *= 2;
-		vect->elems = realloc(vect->elems, sizeof(ElemType) * vect->capacity);
+		resizeVector(vect);
 	}
 	vect->elems[vect->size] = elem;
 	vect->size ++;
