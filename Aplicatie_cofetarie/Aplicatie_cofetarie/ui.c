@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "service.h"
 #include <stdio.h>
+
 //Modulul pentru interactiunea cu utilizatorul
 
 void displayMenu() {

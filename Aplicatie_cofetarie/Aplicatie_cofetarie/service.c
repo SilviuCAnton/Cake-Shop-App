@@ -3,6 +3,8 @@
 #include "domain.h"
 #include <string.h>
 
+//Modul pentru functionalitatile aplicatiei
+
 /*
 Description: adauga o materie prima intr-o lista
 

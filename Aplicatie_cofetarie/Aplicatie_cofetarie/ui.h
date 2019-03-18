@@ -2,6 +2,8 @@
 #include "utils.h"
 #include "repo.h"
 
+//Modulul pentru interactiunea cu utilizatorul
+
 void run(Repository myRepo);
 void addIngredientUI(Repository repo);
 void removeIngredientUI(Repository repo);

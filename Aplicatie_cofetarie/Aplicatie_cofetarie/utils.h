@@ -1,6 +1,8 @@
 #pragma once
 #include "domain.h"
 
+//Modulul utilitar al aplicatiei(contine implementarea vectorului dinamic)
+
 typedef void* ElemType;
 typedef void(*DestroyFunction)(ElemType);
 

@@ -1,6 +1,8 @@
 #include "repo.h"
 #include "utils.h"
 
+//Modul pentru operatiile de stocare a informatiilor
+
 /*
 Description: functie de creare a unui repository
 

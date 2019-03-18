@@ -30,15 +30,18 @@ void testValidator() {
 	Ingredient* ing1 = createIngredient("Halo", "ffff", -1);
 	Ingredient* ing2 = createIngredient("5Halo", "ffff", 24);
 	Ingredient* ing3 = createIngredient("Halo", "3ffff", 130);
-	Ingredient* ing4 = createIngredient("Halo", "ffff", 12);
+	Ingredient* ing4 = createIngredient("", "ffff", 12);
+	Ingredient* ing5 = createIngredient("Halo", "ffff", 12);
 	assert(validate(ing1) == 0);
 	assert(validate(ing2) == 0);
 	assert(validate(ing3) == 0);
-	assert(validate(ing4) == 1);
+	assert(validate(ing4) == 0);
+	assert(validate(ing5) == 1);
 	destroyIngredient(ing1);
 	destroyIngredient(ing2);
 	destroyIngredient(ing3);
 	destroyIngredient(ing4);
+	destroyIngredient(ing5);
 }
 
 void testDynamicVect() {

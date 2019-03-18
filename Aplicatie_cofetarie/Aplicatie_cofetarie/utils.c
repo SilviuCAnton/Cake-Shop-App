@@ -1,7 +1,8 @@
 #include "utils.h"
 #include "domain.h"
 #include <stdlib.h>
-//Modulul utilitar al aplicatiei
+
+//Modulul utilitar al aplicatiei(contine implementarea vectorului dinamic)
 
 /*
 	Description: creeaza un vector dinamic
@@ -71,17 +72,17 @@ void append(DynamicVect* vect, ElemType elem) {
 	vect->size ++;
 }
 
-//Returneaza lungimea vectorului
+//Description: returneaza lungimea vectorului
 int getSize(DynamicVect* vect) {
 	return vect->size;
 }
 
-//Returneaza pointer-ul la elementul de pe pozitia poz
+//Description: returneaza pointer-ul la elementul de pe pozitia poz
 ElemType getElement(DynamicVect* vect, int poz) {
 	return vect->elems[poz];
 }
 
-//Seteaza un element al vectorului
+//Description: seteaza un element al vectorului de pe o pozitie data
 void setElement(DynamicVect* vect, int poz, ElemType value) {
 	vect->elems[poz] = value;
 }
