@@ -66,7 +66,7 @@ void testDynamicVect() {
 void testService() {
 	Repository repo = createRepo(createVector(destroyIngredient));
 
-	addIngredient(repo, "DA", "DA", 33.6);
+	addIngredient(repo, "DA", "DU", 33.6);
 	addIngredient(repo, "AU", "NU", 40);
 	addIngredient(repo, "DA", "da", 45);
 	assert(addIngredient(repo, "1A", "sdfa", 34) == -1);

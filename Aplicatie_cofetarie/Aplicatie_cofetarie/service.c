@@ -138,23 +138,42 @@ DynamicVect* quantityFilter(Repository repo, float number) {
 	return resultV;
 }
 
+int cmpName(Ingredient* i1, Ingredient* i2 ) {
+	return strcmp(getName(i1), getName(i2)) > 0;
+}
+
+int cmpQuantity(Ingredient* i1, Ingredient* i2) {
+	return getQuantity(i2) - getQuantity(i1);
+}
+
 /*
-Description: sorteaza materiile prime crescator dupa nume
+Description: sorteaza materiile prime
 
 In:
 	- repo - repository de materii prime
+	- cmpFct - functie de comparare
 */
-void sortByName(Repository repo) {
+void sort(Repository repo, int(*cmpFct)(ElemType e1, ElemType e2)) {
 	DynamicVect* vect = getAll(repo);
 	for (int i = 0; i < getSize(vect) - 1; i++) {
 		for (int j = i + 1; j < getSize(vect); j++) {
-			if (strcmp(getName(vect->elems[i]), getName(vect->elems[j])) > 0) {
-				Ingredient* aux = vect->elems[i];
+			if (cmpFct(vect->elems[i], vect->elems[j])) {
+				ElemType aux = vect->elems[i];
 				vect->elems[i] = vect->elems[j];
 				vect->elems[j] = aux;
 			}
 		}
 	}
+}
+
+/*
+Description: sorteaza materiile prime
+
+In:
+	- repo - repository de materii prime
+*/
+void sortByName(Repository repo) {
+	sort(repo, cmpName);
 }
 
 /*
@@ -164,14 +183,5 @@ In:
 	- repo - repository de materii prime
 */
 void sortByQuantity(Repository repo) {
-	DynamicVect* vect = getAll(repo);
-	for (int i = 0; i < getSize(vect) - 1; i++) {
-		for (int j = i + 1; j < getSize(vect); j++) {
-			if (getQuantity(vect->elems[i]) < getQuantity(vect->elems[j])) {
-				Ingredient* aux = vect->elems[i];
-				vect->elems[i] = vect->elems[j];
-				vect->elems[j] = aux;
-			}
-		}
-	}
+	sort(repo, cmpQuantity);
 }
