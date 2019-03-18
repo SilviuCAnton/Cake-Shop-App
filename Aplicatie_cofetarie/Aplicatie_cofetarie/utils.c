@@ -4,14 +4,6 @@
 
 //Modulul utilitar al aplicatiei(contine implementarea vectorului dinamic)
 
-/*
-	Description: creeaza un vector dinamic
-
-	In:
-		- f - functia de distrugere a elementelor din vector
-	Out:
-		- vect - pointer la vector
-	*/
 DynamicVect* createVector(DestroyFunction f) {
 	
 	DynamicVect* vect = malloc(sizeof(DynamicVect));
@@ -22,13 +14,6 @@ DynamicVect* createVector(DestroyFunction f) {
 	return vect;
 }
 
-/*
-Description: sterge un element din vector
-
-In:
-	- vect - pointer la vector
-	- poz - pozitia elementului de sters
-*/
 void removeElement(DynamicVect* vect, int poz) {
 
 	if (poz != vect->size - 1) {
@@ -41,12 +26,6 @@ void removeElement(DynamicVect* vect, int poz) {
 	vect->size -= 1;
 }
 
-/*
-Description: elibereaza memoria ocupata de vector(distruge vectorul)
-
-In:
-	- vect - pointer la vector
-*/
 void destroyVector(DynamicVect* vect) {
 	for (int i = 0; i < vect->size; i++) {
 		vect->destroy(vect->elems[i]);
@@ -65,13 +44,6 @@ void resizeVector(DynamicVect* vect) {
 	vect->elems = newArray;
 }
 
-/*
-	Description: adauga un element la vector
-
-	In:
-		- vect - pointer la vector
-		- void* - pointer la element
-*/
 void append(DynamicVect* vect, ElemType elem) {
 	
 	if (vect->size == vect->capacity) {
@@ -81,17 +53,27 @@ void append(DynamicVect* vect, ElemType elem) {
 	vect->size ++;
 }
 
-//Description: returneaza lungimea vectorului
 int getSize(DynamicVect* vect) {
 	return vect->size;
 }
 
-//Description: returneaza pointer-ul la elementul de pe pozitia poz
 ElemType getElement(DynamicVect* vect, int poz) {
 	return vect->elems[poz];
 }
 
-//Description: seteaza un element al vectorului de pe o pozitie data
 void setElement(DynamicVect* vect, int poz, ElemType value) {
 	vect->elems[poz] = value;
+}
+
+void sort(DynamicVect* vect, int(*cmpFct)(ElemType e1, ElemType e2)) {
+	for (int i = 0; i < getSize(vect) - 1; i++) {
+		for (int j = i + 1; j < getSize(vect); j++) {
+			ElemType el1 = getElement(vect, i);
+			ElemType el2 = getElement(vect, j);
+			if (cmpFct(el1, el2)) {
+				setElement(vect, i, el2);
+				setElement(vect, j, el1);
+			}
+		}
+	}
 }

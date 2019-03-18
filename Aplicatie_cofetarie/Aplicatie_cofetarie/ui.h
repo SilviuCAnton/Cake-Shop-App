@@ -1,14 +1,15 @@
 #pragma once
 #include "utils.h"
 #include "repo.h"
+#include "service.h"
 
 //Modulul pentru interactiunea cu utilizatorul
 
-void run(Repository myRepo);
-void addIngredientUI(Repository repo);
-void removeIngredientUI(Repository repo);
+void run(Service* service);
+void addIngredientUI(Service* service);
+void removeIngredientUI(Service* service);
 void displayMenu();
-void nameFilterUI(Repository repo);
-void quantityFilterUI(Repository repo);
-void sortByNameUI(Repository repo);
-void sortByQuantityUI(Repository repo);
+void nameFilterUI(Service* service);
+void quantityFilterUI(Service* service);
+void sortByNameUI(Service* service);
+void sortByQuantityUI(Service* service);

@@ -55,7 +55,7 @@ void testDynamicVect() {
 	append(v, y);
 	assert(getSize(v) == 2);
 
-	int* g = getElement(v, 1);
+	Ingredient* g = getElement(v, 1);
 	assert(getQuantity(g) == 10);
 
 	removeElement(v, 0);
@@ -67,38 +67,40 @@ void testDynamicVect() {
 }
 
 void testService() {
-	Repository repo = createRepo(createVector(destroyIngredient));
+	Repository* repo = createRepo(createVector(destroyIngredient));
+	Service* service = createService(repo);
 
-	addIngredient(repo, "DA", "DU", 33.6);
-	addIngredient(repo, "AU", "NU", 40);
-	addIngredient(repo, "DA", "da", 45);
-	assert(addIngredient(repo, "1A", "sdfa", 34) == -1);
+	addIngredient(service, "DA", "DU", 33.62f);
+	addIngredient(service, "AU", "NU", 40);
+	addIngredient(service, "DA", "da", 45);
+	assert(addIngredient(service, "1A", "sdfa", 34) == -1);
 	assert(strcmp(getManufacturer(getElem(repo, 0)), "da") == 0);
 
-	modifyIngredient(repo, "AU", "ai", 20);
-	assert(modifyIngredient(repo, "AU", "ai", -21) == -1);
+	modifyIngredient(service, "AU", "ai", 20);
+	assert(modifyIngredient(service, "AU", "ai", -21) == -1);
 	assert(getQuantity(getElem(repo, 1)) == 20);
 
-	DynamicVect* resultFilter1 = nameFilter(repo, 'A');
+	DynamicVect* resultFilter1 = nameFilter(service, 'A');
 	assert(getSize(resultFilter1) == 1);
 	free(resultFilter1->elems);
 	free(resultFilter1);
 
-	DynamicVect* resultFilter2 = quantityFilter(repo, 25);
+	DynamicVect* resultFilter2 = quantityFilter(service, 25);
 	assert(getSize(resultFilter2) == 1);
 	free(resultFilter2->elems);
 	free(resultFilter2);
 
-	sortByName(repo);
+	sortByName(service);
 	assert(getName(getElem(repo, 0))[0] == 'A');
 
-	sortByQuantity(repo);
+	sortByQuantity(service);
 	assert(getQuantity(getElem(repo, 0)) == 45);
 
-	removeIngredient(repo, "AU");
+	removeIngredient(service, "AU");
 	assert(getNumberOfElems(repo) == 1);
 
 	destroyRepo(repo);
+	free(service);
 
 	printf("SERVICE OK \n");
 }

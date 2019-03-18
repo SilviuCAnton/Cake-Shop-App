@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "service.h"
 #include <stdio.h>
+#include <string.h>
 
 //Modulul pentru interactiunea cu utilizatorul
 
@@ -11,29 +12,36 @@ void displayMenu() {
 	printf("Introduceti o optiune: ");
 }
 
-void printList(Repository repo) {
+void printList(Service* service) {
 	printf("\nLista produse:\n");
-	for (int i = 0; i < getNumberOfElems(repo); i++) {
-		printf("%s - %s - %f \n", getName(getElement(getAll(repo), i)), getManufacturer(getElement(getAll(repo), i)), getQuantity(getElement(getAll(repo), i)));
+	for (int i = 0; i < getNumberOfElems(service->repo); i++) {
+		printf("%s - %s - %f \n", getName(getElement(getAll(service->repo), i)), getManufacturer(getElement(getAll(service->repo), i)), getQuantity(getElement(getAll(service->repo), i)));
 	}
 	printf("\n");
 }
 
-void addIngredientUI(Repository repo) {
+void addIngredientUI(Service* service) {
 	char name[20];
 	char manufacturer[20];
 	float quantity;
 
 	printf("Introduceti numele materiei prime: ");
-	scanf_s("%s", &name, 20);
+	fgets(name, 20, stdin);
+	fgets(name, 20, stdin);
+	if ((strlen(name) > 0) && (name[strlen(name) - 1] == '\n'))
+		name[strlen(name) - 1] = '\0';
+	//scanf_s("%s", &name, 20);
 
 	printf("Introduceti numele producatorului: ");
-	scanf_s("%s", &manufacturer, 20);
+	fgets(manufacturer, 20, stdin);
+	if ((strlen(manufacturer) > 0) && (manufacturer[strlen(manufacturer) - 1] == '\n'))
+		manufacturer[strlen(manufacturer) - 1] = '\0';
+	//scanf_s("%s", &manufacturer, 20);
 
 	printf("Introduceti cantitatea: ");
 	scanf("%f", &quantity);
 	
-	int rez = addIngredient(repo, name, manufacturer, quantity);
+	int rez = addIngredient(service, name, manufacturer, quantity);
 
 	if (rez == 1)
 		printf("\nIngredientul a fost adaugat!\n\n");
@@ -42,24 +50,32 @@ void addIngredientUI(Repository repo) {
 	else
 		printf("\nIngredientul nu este valid!\n\n");
 
-	printList(repo);
+	printList(service);
 }
 
-void modifyIngredientUI(Repository repo) {
+void modifyIngredientUI(Service* service) {
 	char name[20];
 	char manufacturer[20];
 	float quantity;
 
 	printf("Introduceti numele materiei prime pe care doriti sa o modificati: ");
-	scanf_s("%s", &name, 20);
+	fgets(name, 20, stdin);
+	fgets(name, 20, stdin);
+	if ((strlen(name) > 0) && (name[strlen(name) - 1] == '\n'))
+		name[strlen(name) - 1] = '\0';
+	//scanf_s("%s", &name, 20);
 
 	printf("Introduceti numele producatorului: ");
-	scanf_s("%s", &manufacturer, 20);
+	fgets(manufacturer, 20, stdin);
+	if ((strlen(manufacturer) > 0) && (manufacturer[strlen(manufacturer) - 1] == '\n'))
+		manufacturer[strlen(manufacturer) - 1] = '\0';
+
+	//scanf_s("%s", &manufacturer, 20);
 
 	printf("Introduceti cantitatea: ");
 	scanf("%f", &quantity);
 
-	int rez = modifyIngredient(repo, name, manufacturer, quantity);
+	int rez = modifyIngredient(service, name, manufacturer, quantity);
 
 	if (rez == 1)
 		printf("\nIngredientul a fost modificat!\n\n");
@@ -68,29 +84,33 @@ void modifyIngredientUI(Repository repo) {
 	else
 		printf("\nDatele nu sunt valide!!!\n\n");
 
-	printList(repo);
+	printList(service);
 }
 
-void removeIngredientUI(Repository repo) {
+void removeIngredientUI(Service* service) {
 	char name[20];
 
 	printf("Introduceti numele materiei prime pe care doriti sa o stergeti: ");
-	scanf_s("%s", &name, 20);
+	fgets(name, 20, stdin);
+	fgets(name, 20, stdin);
+	if ((strlen(name) > 0) && (name[strlen(name) - 1] == '\n'))
+		name[strlen(name) - 1] = '\0';
+	//scanf_s("%s", &name, 20);
 
-	if (removeIngredient(repo, name))
+	if (removeIngredient(service, name))
 		printf("\nIngredientul a fost sters!\n\n");
 	else
 		printf("\nIngredientul cu numele %s nu exista!!!\n\n", name);
 
-	printList(repo);
+	printList(service);
 }
 
-void nameFilterUI(Repository repo) {
+void nameFilterUI(Service* service) {
 	char letter;
 	printf("Introduceti litera dupa care filtrati materiile prime: ");
-	scanf(" %c", &letter);
+	scanf_s(" %c", &letter, 2);
 
-	DynamicVect* resultList = nameFilter(repo, letter);
+	DynamicVect* resultList = nameFilter(service, letter);
 
 	if (resultList->size == 0)
 		printf("Nu exista materii prime ce incep cu litera %c!!!", letter);
@@ -106,12 +126,12 @@ void nameFilterUI(Repository repo) {
 	free(resultList);
 }
 
-void quantityFilterUI(Repository repo) {
+void quantityFilterUI(Service* service) {
 	float number;
 	printf("Introduceti cantitatea maxima: ");
 	scanf("%f", &number);
 
-	DynamicVect* resultList = quantityFilter(repo, number);
+	DynamicVect* resultList = quantityFilter(service, number);
 
 	if (resultList->size == 0)
 		printf("Nu exista materii prime cu cantitatea mai mica decat %f!!!", number);
@@ -127,17 +147,17 @@ void quantityFilterUI(Repository repo) {
 	free(resultList);
 }
 
-void sortByNameUI(Repository repo) {
-	sortByName(repo);
-	printList(repo);
+void sortByNameUI(Service* service) {
+	sortByName(service);
+	printList(service);
 }
 
-void sortByQuantityUI(Repository repo) {
-	sortByQuantity(repo);
-	printList(repo);
+void sortByQuantityUI(Service* service) {
+	sortByQuantity(service);
+	printList(service);
 }
 
-void run(Repository myRepo) {
+void run(Service* service) {
 	int optiune;
 	while (1) {
 		displayMenu();
@@ -150,25 +170,25 @@ void run(Repository myRepo) {
 
 		switch(optiune){
 			case 1:
-				addIngredientUI(myRepo);
+				addIngredientUI(service);
 				break;
 			case 2:
-				modifyIngredientUI(myRepo);
+				modifyIngredientUI(service);
 				break;
 			case 3:
-				removeIngredientUI(myRepo);
+				removeIngredientUI(service);
 				break;
 			case 4:
-				nameFilterUI(myRepo);
+				nameFilterUI(service);
 				break;
 			case 5:
-				quantityFilterUI(myRepo);
+				quantityFilterUI(service);
 				break;
 			case 6:
-				sortByNameUI(myRepo);
+				sortByNameUI(service);
 				break;
 			case 7:
-				sortByQuantityUI(myRepo);
+				sortByQuantityUI(service);
 				break;
 			default:
 				printf("Optiunea nu exista!!!");
