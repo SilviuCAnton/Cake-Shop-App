@@ -2,6 +2,8 @@
 An app for managing the stocks of a cake shop. It lets you add/remove/modify a stock, filter the stocks by name (starting letter), 
 by price and sorting them.
 
+C programming language
+
 ## What I Learned
 * Fundamentals of the C programming language
 * Pointers and dynamic memory allocation and how to avoid mistakes like dangling pointers or memory leaks
